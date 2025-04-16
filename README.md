@@ -1,6 +1,16 @@
-# CS310-Spring-2025-Project-Group-29
+# shopping_app
 
-Project for CS310 course. We will develop a mobile application. The applications name is QuickMart.
-It is a mobile platform to manage and perform deliveries of groceries and other household supplies.
+A new Flutter project.
 
-Development will be made on Flutter using the Dart programming language.
+## Getting Started
+
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
