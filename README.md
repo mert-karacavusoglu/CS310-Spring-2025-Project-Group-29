@@ -1,6 +1,7 @@
 # shopping_app
 
-A new Flutter project.
+Our project repository for CS310 term project. We're developing a mobile shopping app called QuickMart. The development platform is the Flutter API
+and the Dart Programming Language.
 
 ## Getting Started
 
