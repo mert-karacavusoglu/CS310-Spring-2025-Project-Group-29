@@ -9,7 +9,9 @@ void main() {
       routes: {
         '/wishlist': (context) => Wishlist(),
         '/cart': (context) => Cart(),
-        '/search': (context) => SearchScreen()  
+        '/search': (context) => SearchScreen(),
+        '/userProfile':(context) => UserProfile(),
+        '/settings':(context) => SettingsPage(),
       },
       theme: ThemeData(fontFamily: 'serif') // text font from asset
   ));
