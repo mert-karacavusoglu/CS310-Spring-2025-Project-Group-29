@@ -62,6 +62,11 @@ flutter:
         - asset: assets/fonts/serif.ttf
   assets:
     - assets/images/productplaceholder.png
+    - assets/images/logos1.png
+    - assets/images/apple.jpg
+    - assets/images/banner.jpg
+    - assets/images/marul.jpg
+    - assets/images/store.jpg
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
