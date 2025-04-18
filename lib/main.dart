@@ -5,11 +5,15 @@ import 'package:shopping_app/routes/search.dart';
 import 'package:shopping_app/routes/login.dart';
 import 'package:shopping_app/routes/user_profile.dart';
 import 'package:shopping_app/routes/settings.dart';
+import 'package:shopping_app/routes/home.dart';
+import 'package:shopping_app/routes/splash.dart';
 
 void main() {
   runApp(MaterialApp(
-      initialRoute: '/wishlist',
+      initialRoute: '/splash',
       routes: {
+        '/splash' : (context) => SplashScreen(),
+        '/home' : (context) => HomeScreen(),
         '/wishlist': (context) => Wishlist(),
         '/cart': (context) => Cart(),
         '/search': (context) => SearchScreen(),
