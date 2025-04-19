@@ -107,6 +107,7 @@ class _LoginState extends State<Login> {
           TextFormField(
             controller: passwordController,
             decoration: const InputDecoration(hintText: 'Password'),
+            obscureText: true,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please Enter Your Password';
