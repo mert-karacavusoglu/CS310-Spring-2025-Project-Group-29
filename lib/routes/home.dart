@@ -7,15 +7,25 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(''),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              Navigator.pushNamed(context, '/search');
-            },
-          ),
-        ],
+        automaticallyImplyLeading: false,
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: () {
+                Navigator.pushNamed(context, '/settings');
+              },
+            ),
+            SizedBox(width: 10),
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                Navigator.pushNamed(context, '/search');
+              },
+            ),
+          ]
+        )
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -110,7 +120,7 @@ class HomeScreen extends StatelessWidget {
         currentIndex: 0,
         type: BottomNavigationBarType.fixed,
         onTap: (index) {
-          final routes = ['/', '/wishlist', '/cart', '/profile'];
+          final routes = ['/', '/wishlist', '/cart', '/userProfile'];
           if (index != 0) {
             Navigator.pushNamed(context, routes[index]);
           }

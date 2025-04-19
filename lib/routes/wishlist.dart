@@ -24,7 +24,7 @@ class _WishlistState extends State<Wishlist> {
   }
 
   List<WishlistItem> items = [
-    WishlistItem('Item 1','price','https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png'),
+    WishlistItem('Item 1','price','https://i.imgur.com/sUFH1Aq.png'),
     WishlistItem('Item 2','price','assets/images/productplaceholder.png', isOnline: false),
   ];
 
