@@ -112,6 +112,10 @@ class HomeScreen extends StatelessWidget {
                 ),
                 height: 200,
               ),
+              const SizedBox(height: 12),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              )
             ],
           ),
         ),

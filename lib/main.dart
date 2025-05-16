@@ -7,6 +7,7 @@ import 'package:shopping_app/routes/userprofile.dart';
 import 'package:shopping_app/routes/settings.dart';
 import 'package:shopping_app/routes/home.dart';
 import 'package:shopping_app/routes/splash.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MaterialApp(
