@@ -28,6 +28,9 @@ class _UserProfileState extends State<UserProfile> {
 
   Future<void> _loadUserData() async {
     final user = _auth.currentUser;
+    if (user == null) {
+      return;
+    }
     try {
       final userDoc = await _firestore.collection('users').doc(user?.uid).get();
       if (userDoc.exists && userDoc.data() != null) {

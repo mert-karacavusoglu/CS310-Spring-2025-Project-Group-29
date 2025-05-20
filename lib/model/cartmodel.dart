@@ -29,3 +29,4 @@ class CartModel extends ChangeNotifier {
       _cartItems.entries.fold(
           0.0, (sum, entry) => sum + entry.key.price * entry.value);
 }
+// this is not comlete you can change or delete

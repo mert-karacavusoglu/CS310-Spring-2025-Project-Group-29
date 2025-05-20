@@ -7,7 +7,7 @@ class CartItem {
   int price;
   int itemCount;
   String imageName;
-  
+
 
   CartItem(this.name, this.price, this.itemCount, this.imageName);
 }
@@ -28,6 +28,7 @@ class _CartState extends State<Cart> {
     CartItem('Item 3', 30, 3, 'assets/images/productplaceholder.png'),
     CartItem('Item 4', 40, 4, 'assets/images/productplaceholder.png'),
   ];
+
 
   @override
   Widget build(BuildContext context) {

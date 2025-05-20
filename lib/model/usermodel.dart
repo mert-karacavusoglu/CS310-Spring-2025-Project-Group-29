@@ -6,7 +6,6 @@ class userModel {
     return {
       'address': address,
       'number': number,
-      // Add other fields here
     };
   }
   factory userModel.fromMap(Map<String, dynamic> data) {
@@ -16,3 +15,4 @@ class userModel {
     );
   }
 }
+// this is complete

@@ -83,6 +83,7 @@ class _LoginState extends State<Login> {
 
   @override
   void dispose() {
+    // this is for memory leaks dont mind it
     usernameController.dispose();
     passwordController.dispose();
     super.dispose();
