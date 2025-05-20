@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "563168944003",
+    "project_id": "cs310-spring-2025-group-29",
+    "storage_bucket": "cs310-spring-2025-group-29.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:563168944003:android:a4457c98e2d7dfe75d20b6",
+        "android_client_info": {
+          "package_name": "com.example.shopping_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5p-jqKKq9MTOe_ZxkoXnFMd79F-LF5rk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
