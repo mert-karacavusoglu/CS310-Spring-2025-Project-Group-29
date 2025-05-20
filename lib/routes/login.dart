@@ -13,60 +13,80 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
-  bool submitted = false;
   String errorMessage = '';
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
-
-  bool checkChar(String s, int idx) {
-    if(s.codeUnitAt(idx) >= 48 && s.codeUnitAt(idx) <= 57) {
-      return true;
-    }
-
-    if(s.codeUnitAt(idx) >= 65 && s.codeUnitAt(idx) <= 90) {
-      return true;
-    }
-
-    if(s.codeUnitAt(idx) >= 97 && s.codeUnitAt(idx) <= 122) {
-      return true;
-    }
-
-
-    return false;
-  }
-
-  bool checkInput() {
-    String uname = usernameController.text;
-    String upass = passwordController.text;
-
-    for (int i = 0; i < uname.length; i++) {
-      if (!checkChar(uname, i)) {
-        return false;
-      }
-    }
-
-    for (int i = 0; i < upass.length; i++) {
-      if (!checkChar(upass, i)) {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-  void processInput() {
-    if (checkInput()) {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  Future<void> _signIn() async {
+    try {
       setState(() {
-        errorMessage = "";
+        errorMessage = '';
       });
-      Navigator.pushNamed(context, '/home'); //Make this the route equal to home screen
-    }
-
-    else {
+      await _auth.signInWithEmailAndPassword(
+        email: usernameController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, '/home');
+      }
+    } on FirebaseAuthException catch (error) {
+      // Handle specific Firebase Authentication errors
+      String errorText;
+      if (error.code == 'user-not-found') {
+        errorText = 'No user found for that email.';
+      } else if (error.code == 'wrong-password') {
+        errorText = 'Wrong password provided for that user.';
+      } else if (error.code == 'invalid-email') {
+        errorText = 'The email address is not valid.';
+      }
+      else if (error.code == 'invalid-credential') {
+        errorText = 'Invalid email or password.';
+      }
+      else {
+        errorText = 'An error occurred during sign in: ${error.message}';
+      }
       setState(() {
-        errorMessage = "Username and Password must be Ascii or Digits";
+        errorMessage = errorText;
       });
     }
+  }
+
+  Future<void> _signUp() async {
+    try {
+      setState(() {
+        errorMessage = ''; // Clear previous errors
+      });
+      await _auth.createUserWithEmailAndPassword(
+        email: usernameController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, '/home');
+      }
+    } on FirebaseAuthException catch (error) {
+      String errorText;
+      if (error.code == 'weak-password') {
+        errorText = 'The password provided is too weak.';
+      } else if (error.code == 'email-already-in-use') {
+        errorText = 'An account already exists for that email.';
+      } else if (error.code == 'invalid-email') {
+        errorText = 'The email address is not valid.';
+      }
+      else {
+        print('Uncaught FirebaseAuthException code during Sign In: ${error.code}');
+        errorText = 'An error occurred during sign up: ${error.message}';
+      }
+      setState(() {
+        errorMessage = errorText;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    usernameController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -85,6 +105,8 @@ class _LoginState extends State<Login> {
         fontWeight: FontWeight.bold, color: appcolor.primary),),
         centerTitle: true,
       ),
+
+
       body: Column(
         children: [
         Padding(
@@ -98,10 +120,11 @@ class _LoginState extends State<Login> {
           children: <Widget>[
             TextFormField(
             controller: usernameController,
-            decoration: const InputDecoration(hintText: 'Username'),
+            keyboardType: TextInputType.emailAddress,
+            decoration: const InputDecoration(hintText: 'Email'),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please Enter Your Username';
+                return 'Please Enter Your Email';
               }
               return null;
             },
@@ -122,7 +145,7 @@ class _LoginState extends State<Login> {
             child: ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  processInput();
+                  _signIn();
                 }
               },
               child: const Text('Login')
@@ -133,7 +156,7 @@ class _LoginState extends State<Login> {
             child: ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  processInput();
+                  _signUp();
                 }
               },
               child: const Text('Sign Up')

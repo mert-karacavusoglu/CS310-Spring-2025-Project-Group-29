@@ -47,8 +47,10 @@ flutter {
     source = "../.."
 }
 dependencies {
-    // Import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.android.gms:play-services-auth:21.0.0")
+
 
 
     // TODO: Add the dependencies for Firebase products you want to use

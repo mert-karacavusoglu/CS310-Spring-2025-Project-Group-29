@@ -12,7 +12,12 @@
           "package_name": "com.example.shopping_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "563168944003-i0rnn1rb2nfe9l9t8j4dj22icu1ju3iv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyB5p-jqKKq9MTOe_ZxkoXnFMd79F-LF5rk"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "563168944003-i0rnn1rb2nfe9l9t8j4dj22icu1ju3iv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "563168944003-hbcq2ke53fd50mhal8r3lbf60hesrf3p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.shoppingApp"
+              }
+            }
+          ]
         }
       }
     }
