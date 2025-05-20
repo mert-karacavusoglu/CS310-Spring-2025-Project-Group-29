@@ -187,6 +187,8 @@ class _SettingsPageState extends State<SettingsPage> {
             const SizedBox(height: 70),
             Text("SELLER MODE"),
             const SizedBox(height: 12),
+            Text("enter product name only to delete, enter full unique product with price image link and title to upload a product"),
+            const SizedBox(height: 12),
             TextFormField(
               controller: titleController,
               decoration: const InputDecoration(labelText: 'Product Name'),
