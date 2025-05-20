@@ -3,6 +3,8 @@ import 'package:shopping_app/util/pads.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shopping_app/model/usermodel.dart';
+import 'package:shopping_app/model/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key}) : super(key: key);
@@ -20,7 +22,10 @@ class _UserProfileState extends State<UserProfile> {
   Future<void> _signOut() async {
     try {
       await _auth.signOut();
-      Navigator.pushReplacementNamed(context, '/login');
+      if(mounted) {
+        Provider.of<AuthInfoProvider>(context, listen : false).setAuth(false);
+        Navigator.pushReplacementNamed(context, '/home');  
+      }
     } catch (error) {
       print('Error signing out: $error');
     }
@@ -55,7 +60,7 @@ class _UserProfileState extends State<UserProfile> {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.of(context, rootNavigator: true).pop(context),
         ),
         title: const Text(
           'USER PROFILE',

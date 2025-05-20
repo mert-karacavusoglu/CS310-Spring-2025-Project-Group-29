@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shopping_app/util/colors.dart';
 import 'package:shopping_app/util/pads.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shopping_app/model/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 
 class Login extends StatefulWidget {
@@ -27,6 +29,7 @@ class _LoginState extends State<Login> {
         password: passwordController.text.trim(),
       );
       if (mounted) {
+        Provider.of<AuthInfoProvider>(context, listen : false).setAuth(true);
         Navigator.pushReplacementNamed(context, '/home');
       }
     } on FirebaseAuthException catch (error) {
@@ -61,6 +64,7 @@ class _LoginState extends State<Login> {
         password: passwordController.text.trim(),
       );
       if (mounted) {
+        Provider.of<AuthInfoProvider>(context, listen : false).setAuth(true);
         Navigator.pushReplacementNamed(context, '/home');
       }
     } on FirebaseAuthException catch (error) {

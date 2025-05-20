@@ -3,6 +3,8 @@ import 'package:shopping_app/util/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shopping_app/model/product.dart';
+import 'package:shopping_app/model/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 
 
@@ -27,21 +29,28 @@ class _HomeScreenState extends State<HomeScreen> {
         automaticallyImplyLeading: false,
         title: Row(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            IconButton(
+          children: <Widget>[
+            Provider.of<AuthInfoProvider>(context, listen:false).authState ? IconButton(
               icon: Icon(Icons.settings),
               onPressed: () {
                 Navigator.pushNamed(context, '/settings');
               },
+            ) : SizedBox(
+              width: 10,
             ),
-            SizedBox(width: 10),
-            IconButton(
+            Provider.of<AuthInfoProvider>(context, listen:false).authState ? SizedBox(width: 10) : SizedBox(width: 270),
+            Provider.of<AuthInfoProvider>(context, listen:false).authState ? IconButton(
               icon: Icon(Icons.search),
               onPressed: () {
                 Navigator.pushNamed(context, '/search');
               },
+            ) : IconButton(
+              icon: Icon(Icons.login),
+              onPressed: () {
+                Navigator.pushNamed(context, '/login');
+              } ,
             ),
-          ],
+          ]
         ),
       ),
       body: SafeArea(
@@ -191,15 +200,13 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: Provider.of<AuthInfoProvider>(context, listen:false).authState ? BottomNavigationBar(
         currentIndex: 0,
         type: BottomNavigationBarType.fixed,
         onTap: (index) {
           final routes = ['/', '/wishlist', '/cart', '/userProfile'];
           if (index != 0) {
-            if (index < routes.length) {
-              Navigator.pushNamed(context, routes[index]);
-            }
+            Navigator.pushNamed(context, routes[index]);
           }
         },
         items: const [
@@ -208,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: ''),
         ],
-      ),
+      ) : SizedBox(height: 0),
     );
   }
 }
