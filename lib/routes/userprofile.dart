@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_app/util/user_data.dart';
+import 'package:shopping_app/util/pads.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shopping_app/model/usermodel.dart';
+
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key}) : super(key: key);
 
@@ -10,17 +14,38 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   final TextEditingController addressController = TextEditingController();
   final TextEditingController contactController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<void> _signOut() async {
+    try {
+      await _auth.signOut();
+      Navigator.pushReplacementNamed(context, '/login');
+    } catch (error) {
+      print('Error signing out: $error');
+    }
+  }
+
+  Future<void> _loadUserData() async {
+    final user = _auth.currentUser;
+    try {
+      final userDoc = await _firestore.collection('users').doc(user?.uid).get();
+      if (userDoc.exists && userDoc.data() != null) {
+        final userData = userModel.fromMap(userDoc.data()!);
+        addressController.text = userData.address;
+        contactController.text = userData.number;
+      }
+    } catch (error) {
+      print('Error loading data from firestore: $error');
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    _updateControllers();
+    _loadUserData();
   }
 
-  void _updateControllers() {
-    addressController.text = UserData.address;
-    contactController.text = UserData.contactNumber;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +65,7 @@ class _UserProfileState extends State<UserProfile> {
             onPressed: () {
               Navigator.pushNamed(context, '/settings').then((_) {
                 setState(() {
-                  _updateControllers(); //
+                  _loadUserData(); //
                 });
               });
             },
@@ -61,6 +86,13 @@ class _UserProfileState extends State<UserProfile> {
               controller: contactController,
               enabled: false,
               decoration: const InputDecoration(labelText: 'Contact Number'),
+            ),
+            Padding(
+                padding: apppad.regularPadding,
+                child: ElevatedButton(
+                    onPressed: _signOut,
+                    child: const Text('Sign Out')
+                )
             ),
           ],
         ),

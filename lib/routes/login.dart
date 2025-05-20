@@ -33,17 +33,17 @@ class _LoginState extends State<Login> {
       // Handle specific Firebase Authentication errors
       String errorText;
       if (error.code == 'user-not-found') {
-        errorText = 'No user found for that email.';
+        errorText = 'User does not exist';
       } else if (error.code == 'wrong-password') {
-        errorText = 'Wrong password provided for that user.';
+        errorText = 'Wrong password';
       } else if (error.code == 'invalid-email') {
-        errorText = 'The email address is not valid.';
+        errorText = 'email address is not valid.';
       }
       else if (error.code == 'invalid-credential') {
         errorText = 'Invalid email or password.';
       }
       else {
-        errorText = 'An error occurred during sign in: ${error.message}';
+        errorText = 'error occurred: ${error.message}';
       }
       setState(() {
         errorMessage = errorText;
@@ -66,15 +66,14 @@ class _LoginState extends State<Login> {
     } on FirebaseAuthException catch (error) {
       String errorText;
       if (error.code == 'weak-password') {
-        errorText = 'The password provided is too weak.';
+        errorText = 'password is too weak.';
       } else if (error.code == 'email-already-in-use') {
-        errorText = 'An account already exists for that email.';
+        errorText = 'email already exists';
       } else if (error.code == 'invalid-email') {
-        errorText = 'The email address is not valid.';
+        errorText = 'email is not valid';
       }
       else {
-        print('Uncaught FirebaseAuthException code during Sign In: ${error.code}');
-        errorText = 'An error occurred during sign up: ${error.message}';
+        errorText = 'error occurred: ${error.message}';
       }
       setState(() {
         errorMessage = errorText;
@@ -121,7 +120,11 @@ class _LoginState extends State<Login> {
             TextFormField(
             controller: usernameController,
             keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(hintText: 'Email'),
+            decoration: InputDecoration(
+              border: OutlineInputBorder(borderSide: BorderSide(color: Colors.green)),
+              prefixIcon: Icon(Icons.email),
+            ),
+
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please Enter Your Email';
@@ -131,7 +134,10 @@ class _LoginState extends State<Login> {
           ),
           TextFormField(
             controller: passwordController,
-            decoration: const InputDecoration(hintText: 'Password'),
+            decoration: InputDecoration(
+              border: OutlineInputBorder(borderSide: BorderSide(color: Colors.green)),
+              prefixIcon: Icon(Icons.password),
+            ),
             obscureText: true,
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -165,7 +171,7 @@ class _LoginState extends State<Login> {
           Text(errorMessage)
           ],
           )
-      ) 
+      )
       ])
     );
   }
